@@ -1,0 +1,8 @@
+<div id="budget-info-div" *ngIf="!isDeleted">
+    <p class="budget-info">Price : {{record.price}}</p>
+    <p class="budget-info">From : {{record.from}}</p>
+    <p class="budget-info">For : {{record.about}}</p>
+    <p class="budget-info">Date : {{record.date.toDateString()}}</p>
+    <!-- <button class="budget-info-button">Edit</button> -->
+    <button class="budget-info-button" (click)="deleteEl(record._id)">Delete</button>
+</div>

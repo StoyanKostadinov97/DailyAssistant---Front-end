@@ -1,0 +1,37 @@
+/* app-header{
+    margin: 0px;
+} */
+div{
+    width: 100%;
+    background:  #121212;
+    /* background: linear-gradient(180deg, rgba(34,193,195,1) 0%, rgb(0, 152, 121) 100%);; */
+    height: 10vh;
+    margin:0px;
+    color: white;
+    font-weight: 800;
+}
+nav{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding-right: 10px;
+}
+nav > p{
+    position: absolute;
+    left: 10%;
+}
+nav a{
+    float: right;
+    margin: 5px;
+    margin-top: 3vh;
+    padding-right: 10px;
+    text-decoration: none;
+    color: white;
+
+}
+.logo{
+    margin: 5px;
+    margin-top: 3vh;
+    padding-right: 10px;
+    float: left;
+}

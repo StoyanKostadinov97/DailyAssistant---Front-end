@@ -1,0 +1,25 @@
+#budget-info-div{
+    margin:0;
+    padding-left:25px ;
+    background-color:rgb(89, 13, 7);
+    border-top: 1vh solid rgb(59, 9, 6);
+}
+.budget-info{
+    margin:0;
+    padding: 5px;
+    padding-left: 40px ;
+    color:white;
+    font-weight: 500;
+    display: inline-block;
+    padding-left:30px;
+}
+.budget-info-button{
+    background-color:rgb(89, 13, 7);
+    display: inline-block;
+    margin-left:30px;
+    color:white;
+    font-weight: 500;
+    border: 2px solid white;
+    border-radius: 10%;
+    margin: 1vh;
+}
