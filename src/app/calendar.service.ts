@@ -1,91 +1,47 @@
-import { NumberFormatStyle } from '@angular/common';
+import { NgForOf, NumberFormatStyle } from '@angular/common';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 import { ITask } from './interfaces/task';
 
 @Injectable()
 export class CalendarService {
-  
   currentDate: Date;
   choosenDate: Date;
   choosenWeek: Date[];
-  
+
   taskArray: ITask[];
   tasksForCurrentWeek: ITask[];
 
-
-  constructor() {
-
+  constructor(private http: HttpClient) {
     this.currentDate = new Date();
-    console.log(this.currentDate+'  in service constructor')
-    this.choosenDate=new Date();
-    this.choosenWeek=this.getChoosenWeekByDate(this.currentDate);
-    this.taskArray = [
-      
-      {
-        title: 'Math class',
-        description: 'Lecture 2: Algorithms',
-        from: '11:40',
-        to: '14:10',
-        date: new Date("2020-11-16")
-      },
-      {
-        title: 'Math class',
-        description: 'Lecture 2: Algorithms',
-        from: '11:40',
-        to: '14:10',
-        date: new Date("2020-11-17")
-      },
-      {
-        title: 'Working on Project',
-        description: 'Lecture 2: Algorithms',
-        from: '11:00',
-        to: '13:00',
-        date: new Date("2020-11-25")
-      },
-      {
-        title: 'Math class',
-        description: 'Lecture 2: Algorithms',
-        from: '13:00',
-        to: '14:30',
-        date: new Date("2020-11-24")
-      },
-      {
-        title: 'Java',
-        description: 'Lecture 2: Algorithms Lecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: AlgorithmsLecture 2: Algorithms',
-        from: '13:10',
-        to: '16:10',
-        date: new Date("2020-11-23")
-      },
-      {
-        title: 'JavaScript',
-        description: 'Lecture 2: Algorithms',
-        from: '11:30',
-        to: '14:30',
-        date: new Date("2020-11-26")
-      }
-    ]
-    this.tasksForCurrentWeek = this.getTasksForTheCurrentWeek(this.taskArray, this.choosenWeek);
-
-  };
- 
+    // console.log(this.currentDate+'  in service constructor')
+    this.choosenDate = new Date();
+    this.choosenWeek = this.getChoosenWeekByDate(this.currentDate);
+    this.taskArray = [];
+    this.tasksForCurrentWeek=[];
+    this.getTasks().subscribe();
 
 
-  getTasksForTheCurrentWeek(tasks: ITask[], week: Date[]): ITask[] {
+  }
+
+  getTasksForTheCurrentWeek(tasks: ITask[], week: Date[]): void {
     const tasksToReturn: ITask[] = [];
     tasks.forEach((x) => {
-      week.forEach(day => {
+      week.forEach((day) => {
         const dayString = day.toDateString();
-        const taskDayString = x.date.toDateString()
+        const taskDayString = x.date.toDateString();
         if (dayString === taskDayString) {
           tasksToReturn.push(x);
         }
-      })
+      });
     });
-    return tasksToReturn;
+    this.tasksForCurrentWeek= tasksToReturn;
   }
 
   getChoosenWeekByDate(date: Date): Date[] {
-
     const choosenDate = new Date(date);
     const arr: Date[] = [];
     const currentWeekDay = choosenDate.getDay();
@@ -103,13 +59,11 @@ export class CalendarService {
       arr.push(dateToPush);
     }
 
-    date.setDate(arr[0].getDate());
+    this,choosenDate.setDate(arr[0].getDate());
     return arr;
-
   }
 
   renderTheCalendarHeader(): void {
-
     // add the current date to calendar-header-date
     let dateElement = document.getElementById('calendar-header-date');
     if (dateElement) {
@@ -118,14 +72,30 @@ export class CalendarService {
 
     const weekDays = this.choosenWeek;
 
-    const monthContainer = document.getElementById('calendar-table-header-month');
-    const mondayContainer = document.getElementById('calendar-table-header-monday');
-    const tuesdayContainer = document.getElementById('calendar-table-header-tuesday');
-    const wednesdayContainer = document.getElementById('calendar-table-header-wednesday');
-    const thursdayContainer = document.getElementById('calendar-table-header-thursday');
-    const fridayContainer = document.getElementById('calendar-table-header-friday');
-    const saturdayContainer = document.getElementById('calendar-table-header-saturday');
-    const sundayContainer = document.getElementById('calendar-table-header-sunday');
+    const monthContainer = document.getElementById(
+      'calendar-table-header-month'
+    );
+    const mondayContainer = document.getElementById(
+      'calendar-table-header-monday'
+    );
+    const tuesdayContainer = document.getElementById(
+      'calendar-table-header-tuesday'
+    );
+    const wednesdayContainer = document.getElementById(
+      'calendar-table-header-wednesday'
+    );
+    const thursdayContainer = document.getElementById(
+      'calendar-table-header-thursday'
+    );
+    const fridayContainer = document.getElementById(
+      'calendar-table-header-friday'
+    );
+    const saturdayContainer = document.getElementById(
+      'calendar-table-header-saturday'
+    );
+    const sundayContainer = document.getElementById(
+      'calendar-table-header-sunday'
+    );
 
     if (monthContainer)
       monthContainer.innerText = weekDays[4].toString().split(' ')[1];
@@ -149,40 +119,48 @@ export class CalendarService {
   getDate(date: Date): string {
     const currentDate = date.getDate();
     const month = date.getMonth();
-    const dayToReturn = currentDate < 10
-      ? '0' + currentDate
-      : currentDate;
-    const monthToReturn = month + 1 < 10
-      ? '0' + (month + 1)
-      : (month + 1);
+    const dayToReturn = currentDate < 10 ? '0' + currentDate : currentDate;
+    const monthToReturn = month + 1 < 10 ? '0' + (month + 1) : month + 1;
 
     return dayToReturn + '.' + monthToReturn + '.' + date.getFullYear();
-
   }
 
   renderTheTasks(): void {
-    this.tasksForCurrentWeek.forEach(x => this.printTask(x));
+    this.getTasksForTheCurrentWeek(
+      this.taskArray,
+      this.choosenWeek
+    );
+    this.tasksForCurrentWeek.forEach((x) => this.printTask(x));
   }
 
   // printing a task on the calendar
   printTask(task: ITask): void {
+    const date = new Date(task.date);
 
-    const weekDay = task.date.toDateString().split(' ')[0];
+    // let weekDay = '';
+    // if (typeof task.date === 'string') {
+    //   weekDay = task.date;
+    //   weekDay = weekDay.split('-')[2];
+    // } else {
+    const weekDay = date.toDateString().split(' ')[0];
+    // }
 
-    const startingHourMinuteArr = task.from.split(':')
+    const startingHourMinuteArr = task.from.split(':');
     const fromHour = startingHourMinuteArr[0];
     const fromMinutes = startingHourMinuteArr[1];
 
-    const endingingHourMinuteArr = task.to.split(':')
+    const endingingHourMinuteArr = task.to.split(':');
     const toHour = endingingHourMinuteArr[0];
     const toMinutes = endingingHourMinuteArr[1];
 
-    const numberOfRowsInAddition = this.calculateNumOfRows((+fromMinutes), (+toMinutes))
+    const numberOfRowsInAddition = this.calculateNumOfRows(
+      +fromMinutes,
+      +toMinutes
+    );
 
-    const numberOfRows = ((+toHour) - (+fromHour)) * 2 + numberOfRowsInAddition;
+    const numberOfRows = (+toHour - +fromHour) * 2 + numberOfRowsInAddition;
 
     this.printRows(task, numberOfRows, weekDay, fromHour, fromMinutes);
-
   }
 
   calculateNumOfRows(from: number, to: number): number {
@@ -192,8 +170,7 @@ export class CalendarService {
 
     if (from == 0 && to == 0) {
       return 0;
-    }
-    else {
+    } else {
       if (from <= 30 && to <= 30) return 1;
     }
 
@@ -208,8 +185,13 @@ export class CalendarService {
     return 0;
   }
 
-  printRows(task: ITask, num: number, day: string, hourString: string, minutesString: string) {
-
+  printRows(
+    task: ITask,
+    num: number,
+    day: string,
+    hourString: string,
+    minutesString: string
+  ) {
     const taskHour = hourString;
     const taskMinutes = minutesString;
 
@@ -225,8 +207,7 @@ export class CalendarService {
         element.title = `${task.title}/${day}/${taskHour}:${taskMinutes}`;
         minutes = 30;
       }
-    }
-    else {
+    } else {
       element = document.getElementById(`${day}-${hour}-30`);
       if (element) {
         element.innerText = task.title;
@@ -238,47 +219,52 @@ export class CalendarService {
     }
 
     while (--num > 0) {
-
       if (minutes < 30) {
         element = document.getElementById(`${day}-${hour}`);
         if (element) {
           element.className = 'task';
           element.title = `${task.title}/${day}/${taskHour}:${taskMinutes}`;
-          minutes = 30
-          if (num == 1) element.style.borderBottom = "1px solid black";
+          minutes = 30;
+          if (num == 1) element.style.borderBottom = '1px solid black';
         }
-      }
-      else {
+      } else {
         element = document.getElementById(`${day}-${hour}-30`);
         if (element) {
           element.className = 'task';
           element.title = `${task.title}/${day}/${taskHour}:${taskMinutes}`;
           minutes = 0;
           hour++;
-          if (num == 1) element.style.borderBottom = "1px solid black";
+          if (num == 1) element.style.borderBottom = '1px solid black';
         }
       }
     }
   }
 
   cleanTheView() {
-    this.tasksForCurrentWeek.forEach(x => this.clearTask(x));
+    this.getTasksForTheCurrentWeek(
+      this.taskArray,
+      this.choosenWeek
+    );
+    this.tasksForCurrentWeek.forEach((x) => this.clearTask(x));
   }
 
   clearTask(task: ITask) {
     const weekDay = task.date.toDateString().split(' ')[0];
 
-    const startingHourMinuteArr = task.from.split(':')
+    const startingHourMinuteArr = task.from.split(':');
     const fromHour = +startingHourMinuteArr[0];
     const fromMinutes = +startingHourMinuteArr[1];
 
-    const endingingHourMinuteArr = task.to.split(':')
+    const endingingHourMinuteArr = task.to.split(':');
     const toHour = +endingingHourMinuteArr[0];
     const toMinutes = +endingingHourMinuteArr[1];
 
-    const numberOfRowsInAddition = this.calculateNumOfRows((+fromMinutes), (+toMinutes))
+    const numberOfRowsInAddition = this.calculateNumOfRows(
+      +fromMinutes,
+      +toMinutes
+    );
 
-    const numberOfRows = ((+toHour) - (+fromHour)) * 2 + numberOfRowsInAddition;
+    const numberOfRows = (+toHour - +fromHour) * 2 + numberOfRowsInAddition;
 
     this.cleanRows(numberOfRows, weekDay, fromHour, fromMinutes);
   }
@@ -292,41 +278,36 @@ export class CalendarService {
       if (element) {
         element.innerText = '';
         element.className = '';
-        element.title='';
+        element.title = '';
         minutes = 30;
       }
-
-    }
-    else {
+    } else {
       element = document.getElementById(`${day}-${hour}-30`);
 
       if (element) {
         element.innerText = '';
         element.className = '';
-        element.title='';
+        element.title = '';
         minutes = 0;
         hour++;
       }
     }
 
     while (--num > 0) {
-
       if (minutes < 30) {
         element = document.getElementById(`${day}-${hour}`);
         if (element) {
-
           element.className = '';
-          element.title='';
-          if (num == 1) element.style.borderBottom = "";
-          minutes = 30
+          element.title = '';
+          if (num == 1) element.style.borderBottom = '';
+          minutes = 30;
         }
-      }
-      else {
+      } else {
         element = document.getElementById(`${day}-${hour}-30`);
         if (element) {
           element.className = '';
-          element.title='';
-          if (num == 1) element.style.borderBottom = "";
+          element.title = '';
+          if (num == 1) element.style.borderBottom = '';
           minutes = 0;
           hour++;
         }
@@ -334,23 +315,54 @@ export class CalendarService {
     }
   }
 
-  prevWeek(){
+  prevWeek() {
     this.cleanTheView();
     this.choosenDate.setDate(this.choosenDate.getDate() - 7);
-    this.choosenWeek=this.getChoosenWeekByDate(this.choosenDate);
-    this.tasksForCurrentWeek=this.getTasksForTheCurrentWeek(this.taskArray,this.choosenWeek);
+    this.choosenWeek = this.getChoosenWeekByDate(this.choosenDate);
+    this.getTasksForTheCurrentWeek(
+      this.taskArray,
+      this.choosenWeek
+    );
     this.renderTheCalendarHeader();
     this.renderTheTasks();
   }
-  nextWeek(){
+
+  nextWeek() {
     this.cleanTheView();
     this.choosenDate.setDate(this.choosenDate.getDate() + 7);
-    this.choosenWeek=this.getChoosenWeekByDate(this.choosenDate);
-    this.tasksForCurrentWeek=this.getTasksForTheCurrentWeek(this.taskArray,this.choosenWeek);
+    this.choosenWeek = this.getChoosenWeekByDate(this.choosenDate);
+    this.getTasksForTheCurrentWeek(
+      this.taskArray,
+      this.choosenWeek
+    );
     this.renderTheCalendarHeader();
     this.renderTheTasks();
   }
 
+  postTask(obj: NgForm): void {
+    const description = '';
+    const newItem: ITask = { ...obj.value, description };
+    this.http
+      .post('http://localhost:3000/api/task', newItem, {
+        withCredentials: true,
+      })
+      .subscribe();
+    console.log('from cal ser');
+    const date=new Date(newItem.date);
+    newItem.date=date;
+    this.taskArray.push(newItem);
+    this.printTask(newItem);
+  }
 
-
+  getTasks():Observable<any>{
+    return this.http.get('http://localhost:3000/api/task',{withCredentials:true})
+    .pipe(tap((results) => {
+      const newTaskArr = results as ITask[];
+      newTaskArr.forEach((x)=>{
+        const date=new Date(x.date);
+        x.date=date;
+      })
+      this.taskArray = newTaskArr;
+    }))
+  }
 }

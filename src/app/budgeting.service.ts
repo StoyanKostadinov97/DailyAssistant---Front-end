@@ -4,6 +4,8 @@ import { HttpClient } from '@angular/common/http';
 
 import { IBudget } from './interfaces/budget';
 import { IShoppingItem } from './interfaces/shoppingItem';
+import { Observable } from 'rxjs';
+import { tap } from 'rxjs/operators';
 
 @Injectable()
 export class BudgetingService {
@@ -12,38 +14,34 @@ export class BudgetingService {
 
   constructor(private http: HttpClient) {
     this.budgetArray = [];
-    this.shoppingArray = [
-      {
-        isDone: false,
-        productName: 'bananas',
-      },
-      {
-        isDone: false,
-        productName: 'cheese',
-      },
-      {
-        isDone: false,
-        productName: 'laptop',
-      },
-    ];
+    this.shoppingArray = [];
   }
-  getBudgetArray(): void {
-    this.http
+
+  /**
+   *
+   * Budgeting handlers
+   *
+   */
+
+  getBudgetArray(): Observable<any> {
+    return this.http
       .get('http://localhost:3000/api/budgets', { withCredentials: true })
-      .subscribe((results) => {
-        const newBudgArr = results as IBudget[];
+      .pipe(
+        tap((results) => {
+          const newBudgArr = results as IBudget[];
 
-        newBudgArr.forEach((x) => {
-          const stringDate = x.date;
-          x.date = new Date(stringDate);
-        });
+          newBudgArr.forEach((x) => {
+            const stringDate = x.date;
+            x.date = new Date(stringDate);
+          });
 
-        this.budgetArray = newBudgArr;
-      });
+          this.budgetArray = newBudgArr;
+        })
+      );
   }
 
   postBudgetItem(obj: NgForm): void {
-    const newList: IBudget = { ...obj.value, date: new Date() };
+    const newList: IBudget = { ...obj.value, isDone: false };
     this.http
       .post('http://localhost:3000/api/budgets', newList, {
         withCredentials: true,
@@ -60,7 +58,36 @@ export class BudgetingService {
       .subscribe();
   }
 
-  getShoppingFormData(obj: NgForm): void {
-    this.shoppingArray.push({ ...obj.value, isDone: false } as IShoppingItem);
+  /**
+   *
+   * Shopping handlers
+   *
+   */
+
+  getShoppingArray(): Observable<any> {
+    console.log('get shoppingArray')
+    return this.http
+      .get('http://localhost:3000/api/shopping', { withCredentials: true })
+      .pipe(
+        tap((results) => {
+          const newShopArr = results as IShoppingItem[];
+
+          this.shoppingArray = newShopArr;
+        })
+      );
   }
+
+  postShoppingItem(obj: NgForm): void {
+
+    const newItem: IShoppingItem = { ...obj.value, isDone:false };
+    this.http
+      .post('http://localhost:3000/api/shopping', newItem, {
+        withCredentials: true,
+      })
+      .subscribe();
+    this.shoppingArray.push(newItem);
+  }
+
+
+
 }

@@ -1,4 +1,5 @@
-export interface IShoppingItem{
-    isDone:boolean;
-    productName:string;
+export interface IShoppingItem {
+  _id: string;
+  isDone: boolean;
+  productName: string;
 }

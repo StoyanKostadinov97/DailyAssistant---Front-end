@@ -24,7 +24,7 @@
     <p (click)="toggleInfoShopping()">Shopping list :</p>
     <div *ngIf="isClickedShopping">
         <div class="input-container">
-            <form #shoppingForm="ngForm" (ngSubmit)="this.budgettingService.getShoppingFormData(shoppingForm)">
+            <form #shoppingForm="ngForm" (ngSubmit)="this.budgettingService.postShoppingItem(shoppingForm)">
                 <input #productInput="ngModel" type="text" name="productName" placeholder="Product" ngModel required />
                 <button [disabled]="productInput.invalid">Submit</button>
             </form>

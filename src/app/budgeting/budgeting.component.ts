@@ -1,5 +1,4 @@
-import { Component, OnInit, AfterViewInit, Input, ElementRef, ViewChild } from '@angular/core';
-import { Form, FormControlDirective, NgForm } from '@angular/forms';
+import { Component} from '@angular/core';
 import { BudgetingService } from '../budgeting.service';
 
 
@@ -8,7 +7,7 @@ import { BudgetingService } from '../budgeting.service';
   templateUrl: './budgeting.component.html',
   styleUrls: ['./budgeting.component.css']
 })
-export class BudgetingComponent implements OnInit, AfterViewInit {
+export class BudgetingComponent {
 
 
   isClickedBudget: boolean;
@@ -24,24 +23,22 @@ export class BudgetingComponent implements OnInit, AfterViewInit {
 
   }
 
-
-
-  ngOnInit(): void {
-    // console.log('Before');
-    this.budgettingService.getBudgetArray();
-    // console.log('After');
-  }
-  ngAfterViewInit(): void {
-    // console.log("after init")
-  }
-
   toggleInfoBudgeting(): void {
+
     this.isClickedBudget = !this.isClickedBudget;
+
+    if(this.isClickedBudget){
+      this.budgettingService.getBudgetArray().subscribe();
+    }
   }
 
   toggleInfoShopping(): void {
-    console.log('shoping clicked')
+
     this.isClickedShopping = !this.isClickedShopping;
+    if(this.isClickedShopping){
+      this.budgettingService.getShoppingArray().subscribe();
+    }
+
   }
 
 }

@@ -20,7 +20,7 @@ export class UserService {
     // console.log('LogSubm');
     // console.log({ ...obj.value });
 
-    return this.http.post('http://localhost:3000/api/login', data,{observe:'response',  withCredentials: true }).pipe(
+    return this.http.post('http://localhost:3000/api/login', data,{ withCredentials: true }).pipe(
       tap((user) => {
         this.currentUser=user;
       })

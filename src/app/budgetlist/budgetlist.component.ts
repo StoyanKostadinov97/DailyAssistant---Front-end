@@ -21,12 +21,13 @@ export class BudgetlistComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {}
+
   ngOnDestroy(): void {}
 
   deleteEl(id: string): void {
     this.isDeleted = true;
     this.deleteBtn.emit();
-    console.log('inBULIST COMP');
+
     this.budgetService.deleteBudgetItem(id);
 
     const recordIndex = this.budgetService.budgetArray.findIndex(
