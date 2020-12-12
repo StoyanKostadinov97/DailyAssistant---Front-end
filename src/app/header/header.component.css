@@ -17,8 +17,10 @@ nav{
     padding-right: 10px;
 }
 nav > p{
-    position: absolute;
-    left: 10%;
+  position: absolute;
+  left: 5%;
+  margin-top: 6vh;
+  font-size: 4vh;;
 }
 nav a{
     float: right;

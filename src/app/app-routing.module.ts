@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { BudgetingComponent } from './budgeting/budgeting.component';
-import { CalendarComponent } from './calendar/calendar.component';
+import { AuthGuard } from './auth.guard';
+import { BudgetingComponent } from './budgeting/budgeting/budgeting.component';
+import { CalendarComponent } from './calendar/calendar/calendar.component';
 import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
+import { LinksComponent } from './link/links/links.component';
+import { LoginComponent } from './user/login/login.component';
+import { RegisterComponent } from './user/register/register.component';
 
 const routes: Routes = [
   {
@@ -22,11 +24,18 @@ const routes: Routes = [
   },
   {
     path:'calendar',
-    component:CalendarComponent
+    component:CalendarComponent,
+    canActivate:[AuthGuard]
   },
   {
     path:'budget',
-    component:BudgetingComponent
+    component:BudgetingComponent,
+    canActivate:[AuthGuard]
+  },
+  {
+    path:'links',
+    component:LinksComponent,
+    canActivate:[AuthGuard]
   }
 ];
 
