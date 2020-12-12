@@ -1,0 +1,29 @@
+h1{
+  color: white;
+  font-weight: 700;
+  display: inline;
+}
+p{
+  display: inline;
+  color: white;
+  font-size: xx-large;
+}
+div{
+  margin: 5vh;
+  padding-top: 7vh;
+}
+img{
+  width:75%;
+}
+
+
+.info{
+  display: inline;
+  float:left;
+}
+.img{
+  display:inline;
+}
+.more-info{
+  font-size: x-large;
+}

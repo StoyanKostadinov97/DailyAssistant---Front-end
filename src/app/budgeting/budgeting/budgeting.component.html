@@ -8,8 +8,8 @@
     <div>
       <form #budgetForm="ngForm" (ngSubmit)="this.budgettingService.postBudgetItem(budgetForm)">
         <input #inputPrice="ngModel" type="text" placeholder="Price" name="price" ngModel required min-length="1">
-        <input #inputFrom="ngModel" type="text" placeholder="From" name="from" ngModel required min-length="1">
-        <input #inputFor="ngModel" type="text" placeholder="For" name="about" ngModel required min-length="1">
+        <input #inputFrom="ngModel" type="text" placeholder="From where" name="from" ngModel required min-length="1">
+        <input #inputFor="ngModel" type="text" placeholder="Product name" name="about" ngModel required min-length="1">
         <button id="budget-submit-input"
           [disabled]="inputPrice.invalid || inputFrom.invalid || inputFor.invalid">Add</button>
       </form>

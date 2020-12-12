@@ -6,9 +6,9 @@
       <input #inputTitle="ngModel" name="title" ngModel required minlength="3" />
       <label> Date: </label>
       <input #inputDate="ngModel" type="date" name="date" ngModel required />
-      <label> From: </label>
+      <label> Start hour: </label>
       <input #inputFrom="ngModel" type="time" name="from" ngModel required />
-      <label> To: </label>
+      <label> End hour: </label>
       <input #inputTo="ngModel" type="time" name="to" ngModel required />
       <button [disabled]=" inputTitle.invalid
         || inputDate.invalid
