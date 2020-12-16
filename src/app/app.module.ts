@@ -15,6 +15,7 @@ import { UserModule } from './user/user.module';
 import { CalendarModule } from './calendar/calendar.module';
 import { BudgetingModule } from './budgeting/budgeting.module';
 import { LinkModule } from './link/link.module';
+import { NotAuthGuard } from './not-auth.guard';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { LinkModule } from './link/link.module';
     // HttpClientModule
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
+    NotAuthGuard
   ],
   bootstrap: [AppComponent]
 })

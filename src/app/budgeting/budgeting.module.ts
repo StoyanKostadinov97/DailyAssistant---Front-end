@@ -6,6 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BudgetlistComponent } from './budgetlist/budgetlist.component';
 import { ShoppinglistComponent } from './shoppinglist/shoppinglist.component';
+import { BudgetRoutingModule } from './budgeting-routing.module';
 
 
 
@@ -18,10 +19,11 @@ import { ShoppinglistComponent } from './shoppinglist/shoppinglist.component';
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BudgetRoutingModule
   ],
   providers:[
-    BudgetingService
+     BudgetingService
   ]
 })
 export class BudgetingModule { }

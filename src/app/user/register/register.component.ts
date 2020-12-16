@@ -21,15 +21,7 @@ export class RegisterComponent implements OnInit {
     console.log('OnInitRegister')
   }
   submitRegister(obj:NgForm):void{
-    this.userService.postRegister(obj).subscribe({
-      next: () => {
-        this.router.navigate(['/login']);
-      },
-      error: () => {
-        this.errorMessage = 'ERROR!';
-      },
-    });
+    this.userService.postRegister(obj).subscribe();
     this.router.navigate(['/login']);
-    obj.resetForm();
   }
 }

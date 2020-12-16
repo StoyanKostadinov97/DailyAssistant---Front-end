@@ -5,6 +5,8 @@ import { UserService } from './user.service';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterComponent } from './register/register.component';
+import { BudgetingService } from '../budgeting/budgeting.service';
+import { UserRoutingModule } from './user-routing.module';
 
 
 
@@ -16,10 +18,12 @@ import { RegisterComponent } from './register/register.component';
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    UserRoutingModule
   ],
   providers:[
-    UserService
+    UserService,
+    BudgetingService
   ]
 })
 export class UserModule { }

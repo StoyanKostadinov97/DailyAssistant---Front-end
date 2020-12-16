@@ -17,7 +17,7 @@
 
     <!--  Password input  -->
     <label>Password : </label>
-    <input #inputPassword="ngModel" type="password" placeholder="" name="password" ngModel required minlength="4">
+    <input #inputPassword="ngModel" type="password" placeholder="" name="password" ngModel required minlength="3">
     <!--Password Validations  -->
     <p *ngIf="inputPassword.touched && inputPassword.errors?.required" class="error">
       Password is required!

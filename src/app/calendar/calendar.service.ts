@@ -225,7 +225,7 @@ export class CalendarService {
           element.className = 'task';
           element.title = `${task.title}/${day}/${taskHour}:${taskMinutes}`;
           minutes = 30;
-          if (num == 1) element.style.borderBottom = '1px solid black';
+          if (num == 1) element.style.borderBottom = '1px solid white';
         }
       } else {
         element = document.getElementById(`${day}-${hour}-30`);
@@ -234,7 +234,7 @@ export class CalendarService {
           element.title = `${task.title}/${day}/${taskHour}:${taskMinutes}`;
           minutes = 0;
           hour++;
-          if (num == 1) element.style.borderBottom = '1px solid black';
+          if (num == 1) element.style.borderBottom = '1px solid white';
         }
       }
     }

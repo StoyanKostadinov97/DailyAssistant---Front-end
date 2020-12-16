@@ -15,13 +15,17 @@ const routes: Routes = [
     component:HomeComponent
   },
   {
-    path:'login',
-    component:LoginComponent
+    path: 'home',
+    component:HomeComponent
   },
-  {
-    path:'register',
-    component:RegisterComponent
-  },
+  // {
+  //   path:'login',
+  //   component:LoginComponent
+  // },
+  // {
+  //   path:'register',
+  //   component:RegisterComponent
+  // },
   {
     path:'calendar',
     component:CalendarComponent,
@@ -29,8 +33,7 @@ const routes: Routes = [
   },
   {
     path:'budget',
-    component:BudgetingComponent,
-    canActivate:[AuthGuard]
+    loadChildren:()=>import('./budgeting/budgeting.module').then(m=>m.BudgetingModule),
   },
   {
     path:'links',

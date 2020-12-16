@@ -75,7 +75,7 @@ export class BudgetingService {
    */
 
   getShoppingArray(): Observable<any> {
-    console.log('get shoppingArray')
+
     return this.http
       .get('http://localhost:3000/api/shopping', { withCredentials: true })
       .pipe(

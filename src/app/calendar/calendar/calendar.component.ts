@@ -14,7 +14,6 @@ export class CalendarComponent implements OnInit, AfterViewInit {
   constructor(calendarService: CalendarService) {
     this.addIsClicked = false;
     this.calendarService = calendarService;
-    console.log(this.calendarService.currentDate + ' from constructor');
   }
 
   ngOnInit(): void {
