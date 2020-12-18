@@ -26,9 +26,9 @@ export class UserService {
     // console.log('LogSubm');
     // console.log({ ...obj.value });
 
-    return this.http.post('http://localhost:3000/api/login', data,{ withCredentials: true }).pipe(
-      tap((user) => {
-        this.currentUser=user;
+    return this.http.post('/login', data,{ withCredentials: true }).pipe(
+      tap((res) => {
+        this.currentUser=res;
       })
     );
   }
@@ -38,7 +38,7 @@ export class UserService {
     const password = obj.value.password;
 
    return this.http
-      .post('http://localhost:3000/api/register', { email, password })
+      .post('/register', { email, password })
       .pipe();
   }
   getlogout():Observable<any>{
@@ -46,7 +46,7 @@ export class UserService {
     this.calendarService.emptyArrays();
     this.budgetingService.emptyArrays();
 
-    return this.http.get(`http://localhost:3000/api/logout`, { withCredentials: true }).pipe(
+    return this.http.get(`/logout`, { withCredentials: true }).pipe(
       tap(() => this.currentUser = null)
     );
 

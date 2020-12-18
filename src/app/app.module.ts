@@ -16,6 +16,7 @@ import { CalendarModule } from './calendar/calendar.module';
 import { BudgetingModule } from './budgeting/budgeting.module';
 import { LinkModule } from './link/link.module';
 import { NotAuthGuard } from './not-auth.guard';
+import { pathInterceptorProvider } from './path-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { NotAuthGuard } from './not-auth.guard';
   ],
   providers: [
     AuthGuard,
-    NotAuthGuard
+    NotAuthGuard,
+    pathInterceptorProvider
   ],
   bootstrap: [AppComponent]
 })

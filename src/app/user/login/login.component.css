@@ -11,7 +11,7 @@ form {
   justify-content: center;
   align-items: center;
   padding: 50px 50px 30px;
-  background: #fff;
+  background: #f3f3f393;
   margin-top:4vh;
   border-radius: 5px;
 }
@@ -33,7 +33,7 @@ form h1 {
   padding: 11px 20px;
   outline: none;
   border: none;
-  background: rgb(230, 230, 230);
+  background: rgba(230, 230, 230, 0.575);
   border-radius: 5px;
 }
 
@@ -54,7 +54,9 @@ button {
 p.error {
   text-align: left;
   border-radius: 0.3em;
-  color: red;
+  color: rgb(102, 18, 18);
+  font-size: large;
+  font-weight: 700;
   padding-top: 0;
   margin: 1vh;
 }

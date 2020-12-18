@@ -9,59 +9,43 @@ import { ILink } from '../interfaces/link';
 @Injectable()
 export class LinksService {
   linksArray: ILink[];
-  constructor(private http:HttpClient,
-    private router:Router) {
-    this.linksArray=[]
+  constructor(private http: HttpClient, private router: Router) {
+    this.linksArray = [];
   }
 
   getLinkArray(): Observable<any> {
-    return this.http
-      .get('http://localhost:3000/api/links', { withCredentials: true })
-      .pipe(
-        tap((results) => {
-
-          this.linksArray = results as ILink[];
-
-        })
-      );
+    return this.http.get('/links', { withCredentials: true }).pipe(
+      tap((results) => {
+        this.linksArray = results as ILink[];
+      })
+    );
   }
 
   postLinkItem(obj: NgForm): void {
-    const views=0;
+    const views = 0;
     const newLink: ILink = { ...obj.value, views };
     this.http
-      .post('http://localhost:3000/api/Links', newLink, {
+      .post('/Links', newLink, {
         withCredentials: true,
       })
       .subscribe();
     this.linksArray.push(newLink);
   }
 
-  deleteLinkItem(id: string):void {
+  deleteLinkItem(id: string): void {
     this.http
-      .delete(`http://localhost:3000/api/links/${id}`, {
+      .delete(`/links/${id}`, {
         withCredentials: true,
       })
       .subscribe();
   }
 
-  updateViews(obj:ILink):void{
-    const increasedViews=obj.views++;
+  updateViews(obj: ILink): void {
+    const increasedViews = obj.views++;
     console.log('from patch');
-    obj.views=increasedViews;
-    this.http
-    .patch(`http://localhost:3000/api/links/${obj._id}`,{withCredentials:true})
-    .subscribe();
+    obj.views = increasedViews;
+    this.http.patch(`/links/${obj._id}`, { withCredentials: true }).subscribe();
 
-    // if(typeof obj.link!=='string'){
-      window.location.href=obj.link.toString();
-      // this.router.navigateByUrl(obj.link.toString());
-    // }
-    // else{
-    //   this.router.navigateByUrl(obj.link);
-    // }
+    window.location.href = obj.link.toString();
   }
-
-
-
 }

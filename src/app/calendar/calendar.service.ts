@@ -343,7 +343,7 @@ export class CalendarService {
     const description = '';
     const newItem: ITask = { ...obj.value, description };
     this.http
-      .post('http://localhost:3000/api/task', newItem, {
+      .post('/task', newItem, {
         withCredentials: true,
       })
       .subscribe();
@@ -355,7 +355,7 @@ export class CalendarService {
   }
 
   getTasks():Observable<any>{
-    return this.http.get('http://localhost:3000/api/task',{withCredentials:true})
+    return this.http.get('/task',{withCredentials:true})
     .pipe(tap((results) => {
       const newTaskArr = results as ITask[];
       newTaskArr.forEach((x)=>{

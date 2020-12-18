@@ -33,7 +33,7 @@ export class BudgetingService {
 
   getBudgetArray(): Observable<any> {
     return this.http
-      .get('http://localhost:3000/api/budgets', { withCredentials: true })
+      .get('/budgets', { withCredentials: true })
       .pipe(
         tap((results) => {
           const newBudgArr = results as IBudget[];
@@ -52,7 +52,7 @@ export class BudgetingService {
     const date=new Date();
     const newList: IBudget = { ...obj.value, date, isDone: false };
     this.http
-      .post('http://localhost:3000/api/budgets', newList, {
+      .post('/budgets', newList, {
         withCredentials: true,
       })
       .subscribe();
@@ -62,7 +62,7 @@ export class BudgetingService {
 
   deleteBudgetItem(id: string) {
     this.http
-      .delete(`http://localhost:3000/api/budgets/${id}`, {
+      .delete(`/budgets/${id}`, {
         withCredentials: true,
       })
       .subscribe();
@@ -77,7 +77,7 @@ export class BudgetingService {
   getShoppingArray(): Observable<any> {
 
     return this.http
-      .get('http://localhost:3000/api/shopping', { withCredentials: true })
+      .get('/shopping', { withCredentials: true })
       .pipe(
         tap((results) => {
           const newShopArr = results as IShoppingItem[];
@@ -91,7 +91,7 @@ export class BudgetingService {
     console.log("from postShopping");
     const newItem: IShoppingItem = { ...obj.value, isDone:false };
     this.http
-      .post('http://localhost:3000/api/shopping', newItem, {
+      .post('/shopping', newItem, {
         withCredentials: true,
       })
       .subscribe();
@@ -101,7 +101,7 @@ export class BudgetingService {
 
   deleteShoppingItem(id: string) {
     this.http
-      .delete(`http://localhost:3000/api/shopping/${id}`, {
+      .delete(`/shopping/${id}`, {
         withCredentials: true,
       })
       .subscribe();

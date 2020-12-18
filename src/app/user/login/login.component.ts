@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
 
     this.userService.postLogin({ email, password }).subscribe({
       next: () => {
-        this.router.navigate(['/calendar']);
+        this.router.navigate(['/']);
       },
       error: (e) => {
         this.errorMessage = 'The provided password does not matched.';
