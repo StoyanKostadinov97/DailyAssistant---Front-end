@@ -1,9 +1,11 @@
-import { NgForOf, NumberFormatStyle } from '@angular/common';
+
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+
 import { ITask } from '../interfaces/task';
 
 @Injectable()
@@ -369,5 +371,12 @@ export class CalendarService {
   emptyArrays():void{
     this.taskArray=[];
     this.tasksForCurrentWeek=[];
+  }
+
+  findTaskByTitle(title:String){
+    const infoArr=title.split('/');
+    const selectedTask=this.tasksForCurrentWeek.find(x=>  x.title===infoArr[0] && x.from===infoArr[2]);
+
+    return selectedTask;
   }
 }

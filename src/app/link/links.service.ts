@@ -46,6 +46,6 @@ export class LinksService {
     obj.views = increasedViews;
     this.http.patch(`/links/${obj._id}`, { withCredentials: true }).subscribe();
 
-    window.location.href = obj.link.toString();
+    window.open( obj.link.toString(),'_blank');
   }
 }

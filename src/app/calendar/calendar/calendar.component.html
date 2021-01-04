@@ -3,17 +3,19 @@
   <div class="form-container" *ngIf="addIsClicked">
     <form #taskForm="ngForm" (ngSubmit)="submmitTask(taskForm)">
       <label> Title: </label>
-      <input #inputTitle="ngModel" name="title" ngModel required minlength="3" />
+      <input #inputTitle="ngModel" id="title" name="title" ngModel required minlength="3" />
       <label> Date: </label>
-      <input #inputDate="ngModel" type="date" name="date" ngModel required />
+      <input #inputDate="ngModel" id="date" type="date" name="date" ngModel required />
       <label> Start hour: </label>
-      <input #inputFrom="ngModel" type="time" name="from" ngModel required />
+      <input #inputFrom="ngModel" id="from" type="time" name="from" ngModel required />
       <label> End hour: </label>
-      <input #inputTo="ngModel" type="time" name="to" ngModel required />
+      <input #inputTo="ngModel" id="to" type="time" name="to" ngModel required />
+      <button  *ngIf="forEdition" >Edit</button>
+      <button  *ngIf="forEdition">Delete</button>
       <button [disabled]=" inputTitle.invalid
         || inputDate.invalid
         || inputFrom.invalid
-        || inputTo.invalid ">Submmit</button>
+        || inputTo.invalid " *ngIf="!forEdition">Submmit</button>
       <button (click)="addClicked()">Cancel</button>
     </form>
   </div>
@@ -46,7 +48,7 @@
 
       </thead>
 
-      <tbody id="calendar-table-body">
+      <tbody id="calendar-table-body" (dblclick)="clickedTask($event)">
 
         <tr>
           <th>05:00</th>
