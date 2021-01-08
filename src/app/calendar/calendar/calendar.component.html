@@ -10,8 +10,8 @@
       <input #inputFrom="ngModel" id="from" type="time" name="from" ngModel required />
       <label> End hour: </label>
       <input #inputTo="ngModel" id="to" type="time" name="to" ngModel required />
-      <button  *ngIf="forEdition" >Edit</button>
-      <button  *ngIf="forEdition">Delete</button>
+      <button  *ngIf="forEdition" id="editBtn" >Edit</button>
+      <button  *ngIf="forEdition" id="delBtn">Delete</button>
       <button [disabled]=" inputTitle.invalid
         || inputDate.invalid
         || inputFrom.invalid

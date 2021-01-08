@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+
 import { CalendarService } from '../calendar.service';
 
 @Component({
@@ -62,7 +63,20 @@ export class CalendarComponent implements OnInit, AfterViewInit {
         if (from && task) from.value = task.from;
         if (to && task) to.value = task.to;
         // this.forEdition=!this.forEdition;
+
+        document.getElementById('editBtn')?.addEventListener('click',()=>{
+          if(task){
+            task.title=title.value;
+            task.date=new Date(date.value);
+            task.from=from.value;
+            task.to=to.value;
+
+            this.calendarService.editTask(task);
+          }
+        })
+
       }, 0);
+
       // from.value = task?.from;
       // to.value = task?.to;
     }

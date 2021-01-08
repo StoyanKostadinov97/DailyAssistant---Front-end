@@ -379,4 +379,8 @@ export class CalendarService {
 
     return selectedTask;
   }
+
+  editTask(task:any){
+    return this.http.patch(`/task/${task._id}`,task,{withCredentials:true}).subscribe();
+  }
 }
