@@ -1,5 +1,5 @@
-# DailyAssistent---Front-end
-Daily Assistent is a SPA build with Angular. You can easily shedule your time, keep track on your money and save your favorite links.
+# DailyAssistant---Front-end
+Daily Assistant is a SPA build with Angular. You can easily shedule your time, keep track on your money and save your favorite links.
 
 With the calendar you can shedule your tasks for the week. Just click the Add Task button and set the task data.
     The required data for task is :
